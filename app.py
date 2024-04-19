@@ -1,13 +1,7 @@
 import streamlit as st
-from newspaper import Article
+import requests
+from bs4 import BeautifulSoup
 from textblob import TextBlob
-import nltk
-import lxml
-
-# Download nltk resources
-nltk.download('punkt')
-nltk.download('stopwords')
-nltk.download('wordnet')
 
 # Title of the web application
 st.title('Simple Sentiment Analyzer')
@@ -19,18 +13,23 @@ input_option = st.sidebar.radio("Choose Input Option", ("URL", "Text"))
 if input_option == "URL":
     input_url = st.sidebar.text_input("Enter the URL of the article you want to analyze", "")
     if input_url:
-        # Fetch and parse the article
-        article = Article(input_url)
-        article.download()
-        article.parse()
+        # Function to extract article text from a webpage
+        def extract_article_text(url):
+            response = requests.get(url)
+            soup = BeautifulSoup(response.content, 'html.parser')
+            article_text = ''
+            for paragraph in soup.find_all('p'):
+                article_text += paragraph.get_text() + '\n'
+            return article_text
 
-        # Summary
+        # Fetch and summarize the article text
+        article_text = extract_article_text(input_url)
         st.write("## Summary")
-        st.write(article.text[:500])  # Display the first 500 characters as summary
+        st.write(article_text[:500])  # Display the first 500 characters as summary
 
         # Sentiment analysis
         with st.spinner('Analyzing sentiment...'):
-            analysis = TextBlob(article.text)
+            analysis = TextBlob(article_text)
             polarity = analysis.sentiment.polarity
             if polarity > 0:
                 sentiment_comment = 'Positive'
