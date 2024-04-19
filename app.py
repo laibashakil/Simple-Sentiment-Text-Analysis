@@ -1,55 +1,64 @@
-import nltk
-nltk.download('punkt')
-nltk.download('stopwords')
-nltk.download('wordnet')
-
 import streamlit as st
 from newspaper import Article
 from textblob import TextBlob
 import nltk
+import lxml
+
+# Download nltk resources
+nltk.download('punkt')
+nltk.download('stopwords')
+nltk.download('wordnet')
 
 # Title of the web application
 st.title('Simple Sentiment Analyzer')
 
 # Sidebar for user input
-st.sidebar.title("URL Input")
-input_url = st.sidebar.text_input("Enter the URL of the article you want to analyze", "")
+st.sidebar.title("Input")
+input_option = st.sidebar.radio("Choose Input Option", ("URL", "Text"))
 
-def fetch_article(url):
-    """ Fetch and parse the article. """
-    article = Article(url)
-    article.download()
-    article.parse()
-    return article
+if input_option == "URL":
+    input_url = st.sidebar.text_input("Enter the URL of the article you want to analyze", "")
+    if input_url:
+        # Fetch and parse the article
+        article = Article(input_url)
+        article.download()
+        article.parse()
 
-def summarize_text(text):
-    """ Use TextBlob for extracting summary of the text. """
-    blob = TextBlob(text)
-    return '\n'.join(blob.sentences[:5])  # Adjusting number for length of summary
+        # Summary
+        st.write("## Summary")
+        st.write(article.text[:500])  # Display the first 500 characters as summary
 
-def analyze_sentiment(text):
-    """ Analyze the sentiment of the text. """
-    analysis = TextBlob(text)
-    polarity = analysis.sentiment.polarity
-    if polarity > 0:
-        return polarity, 'Positive'
-    elif polarity == 0:
-        return polarity, 'Neutral'
-    else:
-        return polarity, 'Negative'
+        # Sentiment analysis
+        with st.spinner('Analyzing sentiment...'):
+            analysis = TextBlob(article.text)
+            polarity = analysis.sentiment.polarity
+            if polarity > 0:
+                sentiment_comment = 'Positive'
+            elif polarity == 0:
+                sentiment_comment = 'Neutral'
+            else:
+                sentiment_comment = 'Negative'
 
-if input_url:
-    # Processing
-    with st.spinner('Fetching and analyzing the article...'):
-        article = fetch_article(input_url)
-        summary = summarize_text(article.text)
-        polarity, sentiment = analyze_sentiment(article.text)
-    
-    # Display results
-    st.write("## Summary")
-    st.write(summary)
-    
-    st.write("## Sentiment Analysis")
-    st.write(f"Sentiment Polarity: {polarity:.2f} ({sentiment})")
+        st.write("## Sentiment Analysis")
+        st.write(f"Sentiment Polarity: {polarity:.2f} ({sentiment_comment})")
+
 else:
-    st.write("Please enter a URL in the sidebar to begin.")
+    input_text = st.sidebar.text_area("Enter the text you want to analyze", "")
+    if input_text:
+        # Summary
+        st.write("## Summary")
+        st.write(input_text[:500])  # Display the first 500 characters as summary
+
+        # Sentiment analysis
+        with st.spinner('Analyzing sentiment...'):
+            analysis = TextBlob(input_text)
+            polarity = analysis.sentiment.polarity
+            if polarity > 0:
+                sentiment_comment = 'Positive'
+            elif polarity == 0:
+                sentiment_comment = 'Neutral'
+            else:
+                sentiment_comment = 'Negative'
+
+        st.write("## Sentiment Analysis")
+        st.write(f"Sentiment Polarity: {polarity:.2f} ({sentiment_comment})")
