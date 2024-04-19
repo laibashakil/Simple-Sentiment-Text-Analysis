@@ -1,5 +1,7 @@
 import nltk
 nltk.download('punkt')
+nltk.download('stopwords')
+nltk.download('wordnet')
 
 import streamlit as st
 from newspaper import Article
