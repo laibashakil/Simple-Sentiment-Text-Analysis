@@ -1,6 +1,4 @@
 streamlit
-requests
-beautifulsoup4
 textblob
-gensim
+pandas
 nltk
