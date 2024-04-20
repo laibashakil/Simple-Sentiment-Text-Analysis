@@ -1,5 +1,6 @@
 streamlit
-newspaper3k
+requests
+beautifulsoup4
 textblob
-pandas
+gensim
 nltk
