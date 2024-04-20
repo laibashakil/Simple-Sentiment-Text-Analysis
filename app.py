@@ -2,6 +2,7 @@ import streamlit as st
 import requests
 from bs4 import BeautifulSoup
 from textblob import TextBlob
+from gensim.summarization import summarize
 
 # Title of the web application
 st.title('Simple Sentiment Analyzer')
@@ -24,8 +25,10 @@ if input_option == "URL":
 
         # Fetch and summarize the article text
         article_text = extract_article_text(input_url)
+        summary = summarize(article_text, ratio=0.2)  # Generate summary using Gensim
+
         st.write("## Summary")
-        st.write(article_text[:500])  # Display the first 500 characters as summary
+        st.write(summary)  # Display the generated summary
 
         # Sentiment analysis
         with st.spinner('Analyzing sentiment...'):
@@ -45,8 +48,10 @@ else:
     input_text = st.sidebar.text_area("Enter the text you want to analyze", "")
     if input_text:
         # Summary
+        summary = summarize(input_text, ratio=0.2)  # Generate summary using Gensim
+
         st.write("## Summary")
-        st.write(input_text[:500])  # Display the first 500 characters as summary
+        st.write(summary)  # Display the generated summary
 
         # Sentiment analysis
         with st.spinner('Analyzing sentiment...'):
