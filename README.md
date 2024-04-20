@@ -1,75 +1,65 @@
-# Simple Sentiment Analyzer
 
-The Simple Sentiment Analyzer is a natural language processing (NLP) web application built with Streamlit that allows users to analyze the sentiment of articles or text. This application provides a simple and intuitive interface for users to input either a URL of an article or plain text, and it generates a summary of the input along with sentiment analysis.
+# Simple Sentiment Text Analysis
+
+Simple Sentiment Text Analysis is a Python web application built with Streamlit, designed for analyzing the sentiment of text data. It provides users with the ability to input either a URL of an article or directly enter text for sentiment analysis. The application extracts the text, generates a summary, and performs sentiment analysis on the input data.
 
 ## Features
 
--   **Input Options**: Users can choose between two input options: entering a URL of an article or providing plain text directly.
--   **Article Summarization**: For URLs input, the application extracts the article text from the webpage and provides a summary of the content.
--   **Sentiment Analysis**: The application analyzes the sentiment of the input text using TextBlob, categorizing it as Positive, Neutral, or Negative.
--   **User-Friendly Interface**: The Streamlit app offers a clean and intuitive user interface, with input options conveniently placed in the sidebar.
-
-## Dependencies
-
--   Streamlit: For building the web application interface.
--   Beautiful Soup: For web scraping and extracting article text from webpages.
--   TextBlob: For sentiment analysis of the input text.
--   Requests: For making HTTP requests to fetch webpage content.
+-   **Text Summarization**: Utilizes NLTK to generate a summary of the input text based on word frequencies.
+-   **Sentiment Analysis**: Employs NLTK's Vader Sentiment Analyzer to determine the sentiment polarity of the input text.
+-   **Web Scraping**: Allows users to input a URL to fetch the text content from a webpage for analysis.
+-   **User-friendly Interface**: Implemented using Streamlit, providing an intuitive and interactive user experience.
 
 ## Installation
 
-1.  Clone the repository to your local machine:
+To run the application locally, follow these steps:
+
+1.  Clone the repository:
     
-    bashCopy code
-    
-    `git clone https://github.com/laibashakil/simple-sentiment-analyzer.git` 
+    `git clone https://github.com/your-username/simple-sentiment-text-analysis.git` 
     
 2.  Navigate to the project directory:
     
-    bashCopy code
+    `cd simple-sentiment-text-analysis` 
     
-    `cd simple-sentiment-analyzer` 
-    
-3.  Install the required Python dependencies using pip:
-    
-    bashCopy code
-    
+3.  Install the dependencies:
+   
     `pip install -r requirements.txt` 
+    
+5.  Run the Streamlit app:
+    
+    `streamlit run app.py` 
+    
+6.  Access the application in your browser at `http://localhost:8501`.
     
 
 ## Usage
 
-1.  Run the Streamlit app locally:
-    
-    bashCopy code
-    
-    `streamlit run app.py` 
-    
-2.  Access the application in your web browser by navigating to the provided local URL.
-    
-3.  Choose an input option (URL or Text) in the sidebar.
-    
-4.  Enter the URL of an article or provide plain text for analysis.
-    
-5.  View the summary of the input and the sentiment analysis results displayed on the page.
-    
+Once the application is running, users can interact with it through a web interface. Here's how to use the application:
 
-## Example
+1.  Choose Input Option: Select whether to input a URL or text directly.
+2.  Enter Input: Depending on the selected option, provide a URL or text input.
+3.  Analyze: Click on the "Analyze" button to generate the summary and sentiment analysis results.
 
-Below are sccreenshots demonstrating the usage of the Simple Sentiment Analyzer:
-![image](https://github.com/laibashakil/Simple-Sentiment-Text-Analysis/assets/96187426/9065adca-437f-4c61-9c06-ce70b374795c)
-![image](https://github.com/laibashakil/Simple-Sentiment-Text-Analysis/assets/96187426/498c7dd1-0973-4f44-8367-a4dd3a94fc0c)
+## Dependencies
+
+The project relies on the following Python packages:
+
+-   Streamlit
+-   Requests
+-   Beautiful Soup
+-   NLTK
+
+These dependencies are listed in the `requirements.txt` file for easy installation.
+
+## Screenshots
+![image](https://github.com/laibashakil/Simple-Sentiment-Text-Analysis/assets/96187426/8af94141-3e86-4ec1-8528-35bba705a84c)
+![image](https://github.com/laibashakil/Simple-Sentiment-Text-Analysis/assets/96187426/d5798474-71e4-4964-8ad1-9047f6d9d9d6)
 
 ## Contributing
 
-Contributions to the Simple Sentiment Analyzer project are welcome! If you'd like to contribute, please follow these steps:
-
-1.  Fork the repository.
-2.  Create a new branch for your feature or bug fix.
-3.  Make your changes and commit them to your branch.
-4.  Push your branch to your fork.
-5.  Create a pull request with a detailed description of your changes.
+Contributions to the project are welcome! If you have any ideas for improvements, new features, or bug fixes, please open an issue or submit a pull request.
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License. See the LICENSE file for more information.
