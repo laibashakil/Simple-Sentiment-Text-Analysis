@@ -16,7 +16,7 @@ To run the application locally, follow these steps:
 
 1.  Clone the repository:
     
-    `git clone https://github.com/your-username/simple-sentiment-text-analysis.git` 
+    `git clone https://github.com/laibashakil/simple-sentiment-text-analysis.git` 
     
 2.  Navigate to the project directory:
     
